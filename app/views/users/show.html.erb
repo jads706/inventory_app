@@ -8,4 +8,38 @@
             </h1>
         </section>
     </aside>
+    <div class = "container">
+        <h3>Product Types </h3>
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Model ID</th>
+      <!--<th scope="col">Edit</th>-->
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% ProductType.all.each do |product| %>
+      <tr>
+        <td><%= product.typeName %></td>
+        <td><%= product.modelID %></td>
+        <!--<td><%#= link_to 'Edit', "#" %></td>-->
+        <td><%= link_to 'Delete', product, method: :delete, data: { confirm: "You sure?" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+  
+<br>
+<%= form_with(model: ProductType, local: true) do |f| %>
+    <%= f.label "" %>Type
+    <%= f.text_field :typeName, class: 'form-control' %>
+    <%= f.label "" %>Model ID
+    <%= f.text_field :modelID, class: 'form-control' %>
+<%= f.submit "Add", class: "btn btn-primary" %>
+<% end %>
+
+</div>
 </div>
