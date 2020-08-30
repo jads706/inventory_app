@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name_id: MyString
+  vsu_id: MyString
+  product_type: one
+  condition: MyString
+  location: MyString
+
+two:
+  name_id: MyString
+  vsu_id: MyString
+  product_type: two
+  condition: MyString
+  location: MyString

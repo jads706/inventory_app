@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_24_205004) do
+ActiveRecord::Schema.define(version: 2020_08_08_020419) do
 
   create_table "product_types", force: :cascade do |t|
-    t.string "typeName"
-    t.string "modelID"
+    t.string "model"
+    t.string "brand"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "units", force: :cascade do |t|
+    t.string "name_id"
+    t.string "vsu_id"
+    t.integer "product_type_id", null: false
+    t.string "condition"
+    t.string "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_type_id"], name: "index_units_on_product_type_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,4 +40,5 @@ ActiveRecord::Schema.define(version: 2020_07_24_205004) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "units", "product_types"
 end

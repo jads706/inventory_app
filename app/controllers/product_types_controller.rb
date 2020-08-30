@@ -1,11 +1,14 @@
 class ProductTypesController < ApplicationController
 
     def index
-        @product_types = ProductType.all
+        @product_type = ProductType.all
+    end
+    def new
+        @product_type = ProductType.new
     end
     def create
-        @product_types = ProductType.new(product_types_params)
-        if @product_types.save
+        @product_type = ProductType.new(product_types_params)
+        if @product_type.save
             flash[:success] = "Product Type created!"
             redirect_to current_user
         else
@@ -20,12 +23,9 @@ class ProductTypesController < ApplicationController
         
 
     end
-    def testAdd
-        ProductType.create!(typeName: "ee", modelID: "0000")
-    end
     
     private
         def product_types_params
-            params.require(:product_type).permit(:typeName, :modelID)
+            params.require(:product_type).permit(:model, :brand)
         end
 end
