@@ -17,6 +17,24 @@ class UnitsController < ApplicationController
         
 
     end
+    # def edit
+    #     Unit.find(params[:id]).update(:location => "user")
+        
+    # end
+    def update
+        # #@unit = Unit.find(params[:id])
+        # if Unit.update(params[:unit])
+        #     flash[:success] = "Unit Location changed"
+        #     redirect_to current_user
+        # end
+        
+    end
+    def checkout
+        Unit.find(params[:id]).update(:location => current_user.name)
+        flash[:success] = "Unit Location changed"
+        redirect_to current_user
+        
+    end
     
     private
         def units_params
