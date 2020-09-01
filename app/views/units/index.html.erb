@@ -1,0 +1,46 @@
+<!--Product Units Table -->
+        <h3>Product Units </h3>
+        <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">VSU ID</th>
+          <th scope="col">Model</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Condition</th>
+          <th scope="col">Location</th>
+          <!--<th scope="col">Edit</th>-->
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Unit.all.each do |unit| %>
+          <tr>
+            <td><%= unit.name_id %></td>
+            <td><%= unit.vsu_id %></td>
+            <td><%= unit.product_type.model %></td>
+            <td><%= unit.product_type.brand %></td>
+            <td><%= unit.condition %></td>
+            <td><%= unit.location %></td>
+            <!--<td><%#= link_to 'Edit', "#" %></td>-->
+            <td><%= link_to 'Delete', unit, method: :delete, data: { confirm: "You sure?" } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+      
+    <br>
+    <%= form_with(model: Unit, local: true) do |f| %>
+        <%= f.label :name_id %>
+        <%= f.text_field :name_id, class: 'form-control' %>
+        <%= f.label "VSU ID" %>
+        <%= f.text_field :vsu_id, class: 'form-control' %>
+        <%= f.label :product_type %>
+        <%= f.select :product_type_id, ProductType.all.map{|c| [c.model,c.id]}, :prompt => "Select One"  %>
+        <%= f.label :condition %>
+        <%= f.text_field :condition, class: 'form-control' %>
+        <%= f.label :location %>
+        <%= f.text_field :location, class: 'form-control' %>
+    <%= f.submit "Add", class: "btn btn-primary" %>
+    <% end %>

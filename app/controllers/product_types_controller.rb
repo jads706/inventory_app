@@ -10,7 +10,7 @@ class ProductTypesController < ApplicationController
         @product_type = ProductType.new(product_types_params)
         if @product_type.save
             flash[:success] = "Product Type created!"
-            redirect_to current_user
+            redirect_to '/product_types'
         else
             render 'static_pages/home'
         end
@@ -19,7 +19,7 @@ class ProductTypesController < ApplicationController
     def destroy
         ProductType.find(params[:id]).destroy
         flash[:success] = "Product Type deleted"
-        redirect_to current_user
+        redirect_to '/product_types'
         
 
     end

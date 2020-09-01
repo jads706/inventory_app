@@ -4,7 +4,7 @@ class UnitsController < ApplicationController
         @unit = Unit.new(units_params)
         if @unit.save
             flash[:success] = "Unit created!"
-            redirect_to current_user
+            redirect_to "/units"
         else
             render 'static_pages/home'
         end
@@ -13,7 +13,7 @@ class UnitsController < ApplicationController
     def destroy
         Unit.find(params[:id]).destroy
         flash[:success] = "Unit deleted"
-        redirect_to current_user
+        redirect_to '/units'
         
 
     end
@@ -31,8 +31,14 @@ class UnitsController < ApplicationController
     end
     def checkout
         Unit.find(params[:id]).update(:location => current_user.name)
-        flash[:success] = "Unit Location changed"
-        redirect_to current_user
+        flash[:success] = "Unit checked out"
+        redirect_to '/checkout'
+        
+    end
+    def returning
+        Unit.find(params[:id]).update(:location => "storage")
+        flash[:success] = "Unit return"
+        redirect_to '/returns'
         
     end
     

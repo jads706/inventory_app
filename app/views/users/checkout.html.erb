@@ -1,0 +1,32 @@
+<!--Checkout Table -->
+        <h3>Checkout </h3>
+        <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">VSU ID</th>
+          <th scope="col">Model</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Condition</th>
+          <!--<th scope="col">Location</th>-->
+          <!--<th scope="col">Edit</th>-->
+          <th scope="col">Checkout</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% Unit.all.each do |unit| %>
+          <% if unit.location == "storage" %>
+          <tr>
+            
+            <td><%= unit.name_id %></td>
+            <td><%= unit.vsu_id %></td>
+            <td><%= unit.product_type.model %></td>
+            <td><%= unit.product_type.brand %></td>
+            <td><%= unit.condition %></td>
+            <!--<td><%#= link_to 'Edit', "#" %></td>-->
+            <td><%= link_to 'Checkout', checkout_unit_path(unit), method: :patch %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>

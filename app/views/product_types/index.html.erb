@@ -1,0 +1,32 @@
+<!--Product Types Table -->
+        <h3>Product Types </h3>
+        <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col">Brand</th>
+          <!--<th scope="col">Edit</th>-->
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% ProductType.all.each do |product| %>
+          <tr>
+            <td><%= product.model %></td>
+            <td><%= product.brand %></td>
+            <!--<td><%#= link_to 'Edit', "#" %></td>-->
+            <td><%= link_to 'Delete', product, method: :delete, data: { confirm: "You sure?" } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+      
+    <br>
+    <%= form_with(model: ProductType, local: true) do |f| %>
+        <%= f.label :model %>
+        <%= f.text_field :model, class: 'form-control' %>
+        <%= f.label :brand %>
+        <%= f.text_field :brand, class: 'form-control' %>
+    <%= f.submit "Add", class: "btn btn-primary" %>
+    <% end %>
