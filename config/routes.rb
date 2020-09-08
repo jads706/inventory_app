@@ -9,12 +9,15 @@ Rails.application.routes.draw do
   get '/units', to: 'units#index'
   get '/returns', to: 'units#borrowed_list_return'
   get '/checkout', to: 'users#checkout'
+  get '/request_checkout', to: 'units#request_checkout'
   resources :users
   resources :product_types, only: [:create, :destroy]
   resources :units do
     member do
       patch :checkout
       patch :returning
+      patch :approve
+      patch :reject
     end
   end
 end

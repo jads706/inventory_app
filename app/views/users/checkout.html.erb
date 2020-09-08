@@ -24,7 +24,23 @@
             <td><%= unit.product_type.brand %></td>
             <td><%= unit.condition %></td>
             <!--<td><%#= link_to 'Edit', "#" %></td>-->
-            <td><%= link_to 'Checkout', checkout_unit_path(unit), method: :patch %></td>
+            <% if current_user.admin? %>
+            <td><%= form_with(model: Unit, local: true) do |f| %>
+                <%= f.select :location, User.all.map{|c| [c.name,c.id]}, :prompt => "Select One"%>
+            <%#= select_tag(unit.location, options_from_collection_for_select(User.all, :id, :name), prompt: "Select One")%></td>
+            <td><%= f.submit "Checkout", class: "btn btn-primary" %>
+                <% end %>
+              <%#= submit_tag( "checkout", data: { confirm: "Are you sure?" }) %></td>
+            <% else %>
+              
+              <td>
+                <% if unit.requestor == "N/A" %>
+                  <%= link_to 'Checkout', checkout_unit_path(unit), method: :patch %>
+                <% else %>
+                  Pending for Request
+                <%end%>
+              </td>
+            <%end%>
           </tr>
           <% end %>
         <% end %>

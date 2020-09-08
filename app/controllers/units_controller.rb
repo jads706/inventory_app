@@ -30,10 +30,23 @@ class UnitsController < ApplicationController
         
     end
     def checkout
-        Unit.find(params[:id]).update(:location => current_user.name)
-        flash[:success] = "Unit checked out"
+        Unit.find(params[:id]).update(:requestor => current_user.name)
+        flash[:success] = "Unit checkout Request sent to Admins, Please wait for Approval"
         redirect_to '/checkout'
         
+    end
+    def approve
+        Unit.find(params[:id]).update(:location => Unit.find(params[:id]).requestor)
+        Unit.find(params[:id]).update(:requestor => "N/A")
+        
+        flash[:success] = "Request Approved"
+        redirect_to '/request_checkout'
+    end
+    def reject
+        Unit.find(params[:id]).update(:requestor => "N/A")
+        Unit.find(params[:id]).update(:location => "storage")
+        flash[:success] = "Request Rejected"
+        redirect_to '/request_checkout'
     end
     def returning
         Unit.find(params[:id]).update(:location => "storage")
