@@ -29,6 +29,12 @@ class UnitsController < ApplicationController
         # end
         
     end
+    def checkoutA
+        Unit.find(params[:id]).update(:location => current_user.name)
+        flash[:success] = "User has been selected for checkout"
+        redirect_to '/checkout'
+        
+    end
     def checkout
         Unit.find(params[:id]).update(:requestor => current_user.name)
         flash[:success] = "Unit checkout Request sent to Admins, Please wait for Approval"
@@ -49,10 +55,23 @@ class UnitsController < ApplicationController
         redirect_to '/request_checkout'
     end
     def returning
-        Unit.find(params[:id]).update(:location => "storage")
-        flash[:success] = "Unit return"
+        Unit.find(params[:id]).update(:returner => current_user.name)
+        flash[:success] = "Unit return request sent to Admins, please wait for approval"
         redirect_to '/returns'
         
+    end
+    def rejectR
+        #Unit.find(params[:id]).update(:location => Unit.find(params[:id]).requestor)
+        Unit.find(params[:id]).update(:returner => "N/A")
+        
+        flash[:success] = "Return Request rejected"
+        redirect_to '/request_return'
+    end
+    def approveR
+        Unit.find(params[:id]).update(:returner => "N/A")
+        Unit.find(params[:id]).update(:location => "storage")
+        flash[:success] = "Return Request approved"
+        redirect_to '/request_return'
     end
     
     private

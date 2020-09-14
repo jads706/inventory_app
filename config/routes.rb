@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/returns', to: 'units#borrowed_list_return'
   get '/checkout', to: 'users#checkout'
   get '/request_checkout', to: 'units#request_checkout'
+  get '/request_return', to: 'units#request_return'
+  get '/borrowed_units', to: 'units#borrowed_units'
   resources :users
   resources :product_types, only: [:create, :destroy]
   resources :units do
@@ -18,6 +20,8 @@ Rails.application.routes.draw do
       patch :returning
       patch :approve
       patch :reject
+      patch :approveR
+      patch :rejectR
     end
   end
 end

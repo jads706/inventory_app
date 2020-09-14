@@ -25,14 +25,13 @@
             <td><%= unit.condition %></td>
             <!--<td><%#= link_to 'Edit', "#" %></td>-->
             <% if current_user.admin? %>
-            <td><%= form_with(model: Unit, local: true) do |f| %>
-                <%= f.select :location, User.all.map{|c| [c.name,c.id]}, :prompt => "Select One"%>
-            <%#= select_tag(unit.location, options_from_collection_for_select(User.all, :id, :name), prompt: "Select One")%></td>
-            <td><%= f.submit "Checkout", class: "btn btn-primary" %>
-                <% end %>
-              <%#= submit_tag( "checkout", data: { confirm: "Are you sure?" }) %></td>
+            <td>
+                <%#= f.select :location, User.all.map{|c| [c.name,c.id]}, :prompt => "Select One"%>
+            <%#= select_tag(:location, options_from_collection_for_select(User.all, :id, :name), selected: :location)%></td>
+            <td><%#= f.submit "Add", class: "btn btn-primary" %>
+                <%# end %>
+              <%#= submit_tag("checkout", checkoutA_unit_path }) %></td>
             <% else %>
-              
               <td>
                 <% if unit.requestor == "N/A" %>
                   <%= link_to 'Checkout', checkout_unit_path(unit), method: :patch %>
