@@ -22,11 +22,13 @@ class UnitsController < ApplicationController
         
     # end
     def update
-        # #@unit = Unit.find(params[:id])
-        # if Unit.update(params[:unit])
-        #     flash[:success] = "Unit Location changed"
-        #     redirect_to current_user
-        # end
+        @unit = Unit.find(params[:id])
+        if @unit.update_attributes(units_params)
+            flash[:success] = "Unit Location changed"
+            redirect_to "/checkout"
+        else
+            flash[:danger] = "Error Occured"
+        end
         
     end
     def checkoutA

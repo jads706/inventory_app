@@ -26,10 +26,13 @@
             <!--<td><%#= link_to 'Edit', "#" %></td>-->
             <% if current_user.admin? %>
             <td>
-                <%#= f.select :location, User.all.map{|c| [c.name,c.id]}, :prompt => "Select One"%>
+              <%= form_for unit do |f| %>
+                <%= f.select :location, User.all.map{|c| [c.name]}, :prompt => "Select One"%>
+                <%= f.submit "checkout for user", class: "btn btn-primary" %>
+              <% end %>
             <%#= select_tag(:location, options_from_collection_for_select(User.all, :id, :name), selected: :location)%></td>
-            <td><%#= f.submit "Add", class: "btn btn-primary" %>
-                <%# end %>
+            <td>
+                
               <%#= submit_tag("checkout", checkoutA_unit_path }) %></td>
             <% else %>
               <td>
