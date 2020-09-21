@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/request_checkout', to: 'units#request_checkout'
   get '/request_return', to: 'units#request_return'
   get '/borrowed_units', to: 'units#borrowed_units'
+  get '/create_user', to: 'users#create_user'
   resources :users
   resources :product_types, only: [:create, :destroy]
   resources :units do
