@@ -17,9 +17,15 @@ class ProductTypesController < ApplicationController
 
     end
     def destroy
+        begin
         ProductType.find(params[:id]).destroy
         flash[:success] = "Product Type deleted"
         redirect_to '/product_types'
+        rescue Exception
+        flash[:danger] = "Cannot delete type since unit is using that type"
+        redirect_to '/product_types'
+            
+        end
         
 
     end
