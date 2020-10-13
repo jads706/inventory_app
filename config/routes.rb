@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   get '/borrowed_units', to: 'units#borrowed_units'
   get '/create_user', to: 'users#create_user'
   get '/users', to: 'users#index'
+  get '/verify_user', to: 'users#verify_user'
   resources :users
+  resources :account_activations, only: [:edit]
   resources :product_types, only: [:create, :destroy]
   resources :units do
     member do

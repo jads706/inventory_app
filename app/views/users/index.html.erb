@@ -23,17 +23,21 @@
                 <td>Regular User</td>
             <% end %>
             <!--<td><%#= link_to 'Edit', "#" %></td>-->
-            <td>
-              
-              <%= form_for user do |f| %>
-                <%= f.label :admin, "No", :value => "false" %>
-                <%= f.radio_button :admin, "0" %>
-                <%= f.label :admin, "Yes", :value => "true" %>
-                <%= f.radio_button :admin, "1" %>
-                <%= f.submit "Change Admin status", class: "btn btn-primary" %>
-              <% end %>
-            <%#= select_tag(:location, options_from_collection_for_select(User.all, :id, :name), selected: :location)%></td>
-                <td><%= link_to 'Delete', user, method: :delete, data: { confirm: "You sure?" } %></td>
+            <% if user.id == 1 %>
+              <td><b>Cannot change status</b></td>
+              <td><b>Cannot delete</b></td>
+            <% else %>
+              <td>
+                <%= form_for user do |f| %>
+                  <%= f.label :admin, "No", :value => "false" %>
+                  <%= f.radio_button :admin, "0" %>
+                  <%= f.label :admin, "Yes", :value => "true" %>
+                  <%= f.radio_button :admin, "1" %>
+                  <%= f.submit "Change Admin status", class: "btn btn-primary" %>
+                <% end %>
+              <%#= select_tag(:location, options_from_collection_for_select(User.all, :id, :name), selected: :location)%></td>
+              <td><%= link_to 'Delete', user, method: :delete, data: { confirm: "You sure?" } %></td>
+            <% end %>
           </tr>
        
       </tbody>
