@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     #Else by default for signup
     else
       if @user.save
-        #UserMailer.account_activation(@user).deliver_now
+        UserMailer.account_activation(@user).deliver_now
         flash[:info] = "Request for activation has been sent, please wait for email to notify that account has been created."
         redirect_to root_url
       end
