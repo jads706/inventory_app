@@ -1,5 +1,32 @@
 class UnitsController < ApplicationController
-
+    def ensure_admin!
+        unless current_user and current_user.admin?
+            redirect_to root_url
+            flash[:danger] = "You do not have proper authorization"
+        end
+    end
+    def index
+        ensure_admin!
+    end
+    def request_checkout
+        ensure_admin!
+    end
+    def request_return
+        ensure_admin!
+    end
+    def borrowed_units
+        ensure_admin!
+    end
+    
+    def ensure_user!
+        unless current_user
+            redirect_to root_url
+            flash[:danger] = "You are not logged in"
+        end
+    end
+    def borrowed_list_return
+        ensure_user!
+    end
     def create
         @unit = Unit.new(units_params)
         if @unit.save

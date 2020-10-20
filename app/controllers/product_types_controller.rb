@@ -1,6 +1,12 @@
 class ProductTypesController < ApplicationController
-
+    def ensure_admin!
+        unless current_user and current_user.admin?
+            redirect_to root_url
+            flash[:danger] = "You do not have proper authorization"
+        end
+    end
     def index
+        ensure_admin!
         @product_type = ProductType.all
     end
     def new

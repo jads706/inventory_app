@@ -1,4 +1,34 @@
 class UsersController < ApplicationController
+  #Admin restricted pages
+  def ensure_admin!
+    unless current_user and current_user.admin?
+      redirect_to root_url
+      flash[:danger] = "You do not have proper authorization"
+    end
+  end
+  def index
+    ensure_admin!
+  end
+  
+  def create_user
+    ensure_admin!
+  end
+  def verify_user
+    ensure_admin!
+  end
+  
+  #User Pages and also accessible to users
+  def ensure_user!
+    unless current_user
+      redirect_to root_url
+      flash[:danger] = "You are not logged in"
+    end
+  end
+  def checkout
+    ensure_user!
+  end
+  
+  #Methods
   def show
     @user = User.find(params[:id])
   end
