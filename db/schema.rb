@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_12_224620) do
+ActiveRecord::Schema.define(version: 2020_10_27_002702) do
 
   create_table "product_types", force: :cascade do |t|
     t.string "model"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 2020_10_12_224620) do
     t.string "activation_digest"
     t.boolean "activated", default: false
     t.datetime "activated_at"
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
