@@ -1,50 +1,55 @@
 <!--Checkout Table -->
-        <h3>Checkout </h3>
-        <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">VSU ID</th>
-          <th scope="col">Model</th>
-          <th scope="col">Brand</th>
-          <th scope="col">Condition</th>
-          <!--<th scope="col">Location</th>-->
-          <!--<th scope="col">Edit</th>-->
-          <th scope="col">Checkout</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% Unit.all.each do |unit| %>
-          <% if unit.location == "storage" %>
-          <tr>
+<h3>Checkout </h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">VSU Tag</th>
+      <th scope="col">Model</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Condition</th>
+      <!--<th scope="col">Location</th>-->
+      <% if current_user.admin? %>
+      <th scope="col">Pick User/Checkout</th>
+      <% else %>
+      <th scope="col">Checkout</th>
+      <%end%>
+    </tr>
+  </thead>
+  <tbody>
+    <% Unit.all.each do |unit| %>
+      <% if unit.location == "storage" %>
+      <tr>
+        
+        <td><%= unit.name_id %></td>
+        <td><%= unit.vsu_id %></td>
+        <td><%= unit.product_type.model %></td>
+        <td><%= unit.product_type.brand %></td>
+        <td><%= unit.condition %></td>
+        <!--<td><%#= link_to 'Edit', "#" %></td>-->
+        <% if current_user.admin? %>
+        <td>
+          <%= form_for unit do |f| %>
+            <%= f.select :location, User.all.map{|c| [c.name]}, :prompt => "Select One"%>
+            <%= f.submit "Checkout", class: "btn btn-primary", id: "admin-checkout" %>
+        </td>
+        <td>
             
-            <td><%= unit.name_id %></td>
-            <td><%= unit.vsu_id %></td>
-            <td><%= unit.product_type.model %></td>
-            <td><%= unit.product_type.brand %></td>
-            <td><%= unit.condition %></td>
-            <!--<td><%#= link_to 'Edit', "#" %></td>-->
-            <% if current_user.admin? %>
-            <td>
-              <%= form_for unit do |f| %>
-                <%= f.select :location, User.all.map{|c| [c.name]}, :prompt => "Select One"%>
-                <%= f.submit "checkout for user", class: "btn btn-primary" %>
-              <% end %>
-            <%#= select_tag(:location, options_from_collection_for_select(User.all, :id, :name), selected: :location)%></td>
-            <td>
-                
-              <%#= submit_tag("checkout", checkoutA_unit_path }) %></td>
-            <% else %>
-              <td>
-                <% if unit.requestor == "N/A" %>
-                  <%= link_to 'Checkout', checkout_unit_path(unit), method: :patch %>
-                <% else %>
-                  Pending for Request
-                <%end%>
-              </td>
-            <%end%>
-          </tr>
+        </td>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        <%#= select_tag(:location, options_from_collection_for_select(User.all, :id, :name), selected: :location)%>
+          <%#= submit_tag("checkout", checkoutA_unit_path }) %>
+        <% else %>
+          <td>
+            <% if unit.requestor == "N/A" %>
+              <%= link_to 'Checkout', checkout_unit_path(unit), method: :patch %>
+            <% else %>
+              Pending for Request
+            <%end%>
+          </td>
+        <%end%>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

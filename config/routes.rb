@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :product_types, only: [:create, :destroy]
   resources :units do
     member do
+      patch :returnManually
       patch :checkout
       patch :returning
       patch :approve

@@ -13,3 +13,55 @@
  *= require_tree .
  *= require_self
  */
+/*for units and product type*/
+form#form{
+    width:40%;
+    margin-left: 30%;
+    
+}
+#form-btn{
+    margin-left: auto;
+}
+/*checkout*/
+select#unit_location{
+    width: 50%;
+}
+#admin-checkout{
+    margin-left: auto;
+    padding-left: 12px;
+    width: 50%;
+}
+input{
+    width: auto;
+}
+
+btn-primary{
+    text-align: center;
+}
+/*user*/
+#update-admin-btn{
+    margin-left: auto;
+}
+
+/*#unit_product_type_id{*/
+/*    width: 30%;*/
+/*}*/
+
+/*sidebar button*/
+#sidebarCollapse{
+    background-color: black;
+    border-color: black;
+}
+#icon-position{
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+.container-fluid{
+    padding-left: 0;
+}
+/*.ul.lisst-unstyled.components{*/
+/*    padding-top: 0;*/
+/*}*/
+#pull-menu{
+     visibility: hidden;
+}

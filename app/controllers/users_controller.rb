@@ -31,6 +31,11 @@ class UsersController < ApplicationController
   #Methods
   def show
     @user = User.find(params[:id])
+    if current_user.admin?
+      redirect_to "/units"
+    else
+      redirect_to "/checkout"
+    end
   end
   def new
     @user = User.new

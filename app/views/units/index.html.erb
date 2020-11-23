@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th scope="col">Name</th>
-          <th scope="col">VSU ID</th>
+          <th scope="col">VSU Tag</th>
           <th scope="col">Model</th>
           <th scope="col">Brand</th>
           <th scope="col">Condition</th>
@@ -31,16 +31,18 @@
     
       
     <br>
-    <%= form_with(model: Unit, local: true) do |f| %>
+    <%= form_with(model: Unit, local: true, id: "form") do |f| %>
         <%= f.label :name_id %>
         <%= f.text_field :name_id, class: 'form-control' %>
-        <%= f.label "VSU ID" %>
+        <%= f.label(:vsu_id, 'VSU Tag') %>
         <%= f.text_field :vsu_id, class: 'form-control' %>
-        <%= f.label :product_type %>
+        <%= f.label(:product_type, 'Product Type') %>
+        <br>
         <%= f.select :product_type_id, ProductType.all.map{|c| [c.model,c.id]}, :prompt => "Select One"  %>
+        <br>
         <%= f.label :condition %>
         <%= f.text_field :condition, class: 'form-control' %>
         <%= f.label :location %>
         <%= f.text_field :location, class: 'form-control' %>
-    <%= f.submit "Add", class: "btn btn-primary" %>
+    <%= f.submit "Add", class: "btn btn-primary", id: "form-btn" %>
     <% end %>

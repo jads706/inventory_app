@@ -11,7 +11,7 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 body {
-    padding-top: 60px;
+    padding-top: 40px;
 }
 section {
     overflow: auto;
@@ -179,7 +179,7 @@ input {
     // background: #6d7fcc;
 }
 #sidebar ul.components{
-    padding: 20px 0;
+    padding: 0px 0;
     // border-bottom: 1px solid white;
 }
 #sidebar ul p{
@@ -251,4 +251,8 @@ a#menu{
         display: none;
     }
     
+}
+
+img#menu-puller{
+    //background-image:url("nav-icon.png");
 }

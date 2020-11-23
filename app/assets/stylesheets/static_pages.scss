@@ -1,3 +1,21 @@
 // Place all the styles related to the StaticPages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+//Home page formatting
+a.btn.btn-lg.btn-primary{
+    margin-top: 20px;
+}
+div.center.jumbotron{
+    background-image: url("background.jpg");
+    padding-bottom: 50%;
+    //padding-top: 20%;
+}
+h1#homeTitle{
+    background-color: white;
+    border-style: solid;
+    margin-right: 25%;
+    margin-left: 25%;
+}
+#sign-up-btn{
+    padding-left: 9px;
+}

@@ -1,5 +1,5 @@
 <!--Product Types Table -->
-        <h3>Product Types </h3>
+        <h3>Add Product Types </h3>
         <table class="table">
       <thead>
         <tr>
@@ -23,10 +23,10 @@
     
       
     <br>
-    <%= form_with(model: ProductType, local: true) do |f| %>
+    <%= form_with(model: ProductType, local: true, id: "form") do |f| %>
         <%= f.label :model %>
         <%= f.text_field :model, class: 'form-control' %>
         <%= f.label :brand %>
         <%= f.text_field :brand, class: 'form-control' %>
-    <%= f.submit "Add", class: "btn btn-primary" %>
+        <%= f.submit "Add", class: "btn btn-primary", id: "form-btn" %>
     <% end %>

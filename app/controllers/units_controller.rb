@@ -101,6 +101,13 @@ class UnitsController < ApplicationController
         Unit.find(params[:id]).update(:location => "storage")
         flash[:success] = "Return Request approved"
         redirect_to '/request_return'
+        
+    end
+    def returnManually
+        Unit.find(params[:id]).update(:returner => "N/A")
+        Unit.find(params[:id]).update(:location => "storage")
+        flash[:success] = "Unit manually returned"
+        redirect_to '/borrowed_units'
     end
     
     private

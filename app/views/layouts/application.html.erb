@@ -27,14 +27,16 @@
   <% end %>
   <div id = "content">
     <% if logged_in? %>
-    <nav class = "navbar navbar-expand-lg navbar-light bg-light">
+    <nav id = "pull-menu">
+    <nav class = "navbar navbar-expand-lg navbar-light bg-light" id = "icon-position">
       <div class = "container-fluid">
         <!--main content-->
         <button type= "button" id = "sidebarCollapse" class = "btn btn-info">
           <i class="fas fa-align-left"></i>
-          <span>Toggle Sidbar</span>
+          <img id = "nav-icon" alt="pull menu" src = "assets/nav-icon.png">
         </button>
       </div>
+    </nav>
     </nav>
     <% end %>
     
@@ -50,6 +52,11 @@
   $(document).ready(function(){
     $("#sidebarCollapse").on('click', function(){
     $("#sidebar").toggleClass('active');
+    $("#pull-menu").css("visibility", "visible");
+    });
+    $("#pull-menu").on('click', function(){
+    $("#sidebar").toggleClass('active');
+    $("#pull-menu").css("visibility", "hidden");
     });
   });
 </script>
