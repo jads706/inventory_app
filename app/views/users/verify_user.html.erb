@@ -22,7 +22,7 @@
                 email: user.email, id: user.id) %></td>
             <% end %>
             <td>
-              <td><%= link_to 'Reject', user, method: :delete, data: { confirm: "You sure?" } %></td>
+              <%= link_to 'Reject', user, method: :delete, data: { confirm: "You sure?" } %>
             </td>
           </tr>
       </tbody>
