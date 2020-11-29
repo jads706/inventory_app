@@ -21,6 +21,9 @@
             <td><%= link_to "Activate", edit_account_activation_url(user.activation_token,
                 email: user.email, id: user.id) %></td>
             <% end %>
+            <td>
+              <td><%= link_to 'Reject', user, method: :delete, data: { confirm: "You sure?" } %></td>
+            </td>
           </tr>
       </tbody>
        <% end %>
