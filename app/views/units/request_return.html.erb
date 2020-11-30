@@ -8,7 +8,6 @@
           <th scope="col">Brand</th>
           <th scope="col">Condition</th>
           <th scope="col">Location</th>
-          <th scope="col">Returner</th>
           <!--<th scope="col">Edit</th>-->
           <th scope="col">Approve</th>
           <th scope="col">Reject</th>
@@ -24,7 +23,6 @@
             <td><%= unit.product_type.brand %></td>
             <td><%= unit.condition %></td>
             <td><%= unit.location %></td>
-            <td><%= unit.returner %></td>
             <!--<td><%#= link_to 'Edit', "#" %></td>-->
             <td><%= link_to 'Approve', approveR_unit_path(unit), method: :patch %></td>
             <td><%= link_to 'Reject', rejectR_unit_path(unit), method: :patch %></td>
