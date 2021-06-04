@@ -10,7 +10,8 @@
         </tr>
       </thead>
       <tbody>
-        <% ProductType.all.each do |product| %>
+        <%= will_paginate @product_type%>
+        <% @product_type.each do |product| %>
           <tr>
             <td><%= product.model %></td>
             <td><%= product.brand %></td>
@@ -20,7 +21,7 @@
         <% end %>
       </tbody>
     </table>
-    
+    <%= will_paginate @product_type%>
       
     <br>
     <%= form_with(model: ProductType, local: true, id: "form") do |f| %>

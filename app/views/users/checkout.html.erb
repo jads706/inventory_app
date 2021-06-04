@@ -1,5 +1,6 @@
 <!--Checkout Table -->
 <h3>Checkout </h3>
+
 <table class="table">
   <thead>
     <tr>
@@ -17,7 +18,8 @@
     </tr>
   </thead>
   <tbody>
-    <% Unit.all.each do |unit| %>
+    <%= will_paginate @units%>
+    <% @units.each do |unit| %>
       <% if unit.location == "storage" %>
       <tr>
         
@@ -53,3 +55,4 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @units%>

@@ -15,7 +15,8 @@
         </tr>
       </thead>
       <tbody>
-        <% Unit.all.each do |unit| %>
+        <%= will_paginate @units%>
+        <% @units.all.each do |unit| %>
           <% if unit.requestor != "N/A" %>
           <tr>
             
@@ -34,3 +35,4 @@
         <% end %>
       </tbody>
     </table>
+    <%= will_paginate @units%>

@@ -6,15 +6,19 @@ class UnitsController < ApplicationController
         end
     end
     def index
+        @units = Unit.paginate(page: params[:page])
         ensure_admin!
     end
     def request_checkout
+        @units = Unit.paginate(page: params[:page])
         ensure_admin!
     end
     def request_return
+        @units = Unit.paginate(page: params[:page])
         ensure_admin!
     end
     def borrowed_units
+        @units = Unit.paginate(page: params[:page])
         ensure_admin!
     end
     
@@ -25,6 +29,7 @@ class UnitsController < ApplicationController
         end
     end
     def borrowed_list_return
+        @units = Unit.paginate(page: params[:page])
         ensure_user!
     end
     def create

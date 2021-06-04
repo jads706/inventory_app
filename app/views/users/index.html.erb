@@ -1,5 +1,6 @@
 <!--User Table -->
         <h3>Users </h3>
+        <%= will_paginate %>
         <table class="table">
       <thead>
         <tr>
@@ -12,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <% User.all.each do |user| %>
+        <% @users.each do |user| %>
           <tr>
             <td><%= user.name %></td>
             <td><%= user.email %></td>
@@ -29,7 +30,7 @@
               <td>
                 <%= form_for user do |f| %>
                   <%= f.label :admin, "No", :value => "false" %>
-                  <%= f.radio_button :admin, "0" %>
+                  <%= f.radio_button :admin, "0", :checked => true %>
                   <%= f.label :admin, "Yes", :value => "true" %>
                   <%= f.radio_button :admin, "1" %>
                   <%= f.submit "Update", class: "btn btn-primary",id: "update-admin-btn" %>
@@ -44,4 +45,6 @@
        
       </tbody>
        <% end %>
+       
     </table>
+<%= will_paginate %>

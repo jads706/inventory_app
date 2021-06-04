@@ -14,7 +14,8 @@
         </tr>
       </thead>
       <tbody>
-        <% Unit.all.each do |unit| %>
+      <%= will_paginate @units%>
+        <% @units.each do |unit| %>
           <tr>
             <td><%= unit.name_id %></td>
             <td><%= unit.vsu_id %></td>
@@ -28,6 +29,7 @@
         <% end %>
       </tbody>
     </table>
+     <%= will_paginate @units%>
     
       
     <br>

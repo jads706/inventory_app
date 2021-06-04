@@ -7,7 +7,7 @@ class ProductTypesController < ApplicationController
     end
     def index
         ensure_admin!
-        @product_type = ProductType.all
+        @product_type = ProductType.paginate(page: params[:page])
     end
     def new
         @product_type = ProductType.new

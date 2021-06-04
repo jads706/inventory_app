@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     end
   end
   def index
+    @users = User.paginate(page: params[:page])
     ensure_admin!
   end
   
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
     ensure_admin!
   end
   def verify_user
+    @users = User.paginate(page: params[:page])
     ensure_admin!
   end
   
@@ -21,35 +23,46 @@ class UsersController < ApplicationController
   def ensure_user!
     unless current_user
       redirect_to root_url
-      flash[:danger] = "You are not logged in"
+      flash[:danger] = "You are not permitted"
     end
   end
   def checkout
+    @units = Unit.paginate(page: params[:page])
     ensure_user!
   end
+  
   
   #Methods
   def show
     @user = User.find(params[:id])
-    if current_user.admin?
+    if current_user.admin? and current_user == @user
       redirect_to "/units"
-    else
+    elsif current_user.admin? == false and current_user == @user
       redirect_to "/checkout"
+    else
+      redirect_to root_url
+      flash[:danger] = "You are not permitted"
     end
   end
   def new
     @user = User.new
+    if logged_in?
+      redirect_to root_url
+    end
   end
   def create
     @user = User.new(user_params)
     #Checks if admin is creating 
     if logged_in?
       if @user.save
-        @user.activated = true
-        @user.activated_at = Time.zone.now
+        @user.update_attribute(:activated, true)
+        @user.update_attribute(:activated_at, Time.zone.now)
         #log_in @user
         flash[:success] = "Created a new user"
         redirect_to "/create_user"
+      else
+        flash[:danger] = "Error Occured when creating a User"
+        redirect_back(fallback_location:"/")
       end
     #Else by default for signup
     else
@@ -81,14 +94,29 @@ class UsersController < ApplicationController
     end
   end
   def update
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]) 
     if @user.update_attributes(user_params)
-        flash[:success] = "Changed Successfully"
-        redirect_to "/users"
+      flash[:success] = "Changed Successfully"
+      redirect_back(fallback_location:"/")
+    # elsif @user.update_attributes(user_params) and current_user.admin? and current_user
+    #   flash[:success] = "Updated Successfully"
+    #   redirect_to "/users"
+    elsif @user.update(user_params)
+      flash[:success] = "Updated Your Profile Successfully"
+      redirect_to @user
     else
-        flash[:danger] = "Error Occured"
+      #Reloads any current page
+      render 'edit'
     end
   end
+  def edit
+    @user = User.find(params[:id])
+    unless current_user == @user
+      redirect_to root_url
+      flash[:danger] = "You are not permitted"
+    end
+  end
+    
   private
     def user_params
       params.require(:user).permit(:name, :email, :password,

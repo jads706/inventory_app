@@ -13,6 +13,7 @@
         </tr>
       </thead>
       <tbody>
+        <%= will_paginate @users%>
         <% User.all.each do |user| %>
           <tr>
             <% if !user.activated %>
@@ -29,3 +30,4 @@
       </tbody>
        <% end %>
     </table>
+    <%= will_paginate @users%>

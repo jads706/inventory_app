@@ -14,7 +14,8 @@
         </tr>
       </thead>
       <tbody>
-        <% Unit.all.each do |unit| %>
+        <%= will_paginate @units%>
+        <% @units.all.each do |unit| %>
           <tr>
             <% if unit.location != "storage" %>
                 <td><%= unit.name_id %></td>
@@ -30,3 +31,4 @@
         <% end %>
       </tbody>
     </table>
+    <%= will_paginate @units%>
