@@ -10,7 +10,7 @@
           <th scope="col">Condition</th>
           <th scope="col">Location</th>
           <!--<th scope="col">Edit</th>-->
-          <th scope="col">Delete</th>
+          <th scope="col">Edit/Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -24,7 +24,8 @@
             <td><%= unit.condition %></td>
             <td><%= unit.location %></td>
             <!--<td><%#= link_to 'Edit', "#" %></td>-->
-            <td><%= link_to 'Delete', unit, method: :delete, data: { confirm: "You sure?" } %></td>
+            <td><%= link_to 'Edit',edit_unit_path(unit) %>/<%= link_to 'Delete', unit, method: :delete, data: { confirm: "You sure?" } %>
+            </td>
           </tr>
         <% end %>
       </tbody>
@@ -45,6 +46,10 @@
         <%= f.label :condition %>
         <%= f.text_field :condition, class: 'form-control' %>
         <%= f.label :location %>
-        <%= f.text_field :location, class: 'form-control' %>
+        <br>
+        <% list = User.all.map{|c| [c.name]} %>
+        <% list.append(['storage'])%>
+        <%= f.select :location, list , :prompt => "Select One"%>
+        <br>
     <%= f.submit "Add", class: "btn btn-primary", id: "form-btn" %>
     <% end %>

@@ -1,0 +1,23 @@
+<% provide(:title, 'Edit Unit') %>
+<h1>Update Unit</h1>
+
+<br>
+    <%= form_with(model: @unit, local: true, id: "form") do |f| %>
+        <%= f.label :name_id %>
+        <%= f.text_field :name_id, class: 'form-control' %>
+        <%= f.label(:vsu_id, 'VSU Tag') %>
+        <%= f.text_field :vsu_id, class: 'form-control' %>
+        <%= f.label(:product_type, 'Product Type') %>
+        <br>
+        <%= f.select :product_type_id, ProductType.all.map{|c| [c.model,c.id]}, :prompt => "Select One"  %>
+        <br>
+        <%= f.label :condition %>
+        <%= f.text_field :condition, class: 'form-control' %>
+        <%= f.label :location %>
+        <br>
+        <% list = User.all.map{|c| [c.name]} %>
+        <% list.append(['storage'])%>
+        <%= f.select :location, list , :prompt => "Select One"%>
+        <br>
+    <%= f.submit "Save", class: "btn btn-primary", id: "form-btn" %>
+    <% end %>

@@ -18,7 +18,8 @@ class ProductTypesController < ApplicationController
             flash[:success] = "Product Type created!"
             redirect_to '/product_types'
         else
-            render 'static_pages/home'
+            flash[:danger] = "Error: Product Type was not created"
+            redirect_to "/product_types"
         end
 
     end

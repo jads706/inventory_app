@@ -26,6 +26,9 @@ form#form{
 select#unit_location{
     width: 50%;
 }
+form#form select#unit_location{
+    width: 100%;
+}
 #admin-checkout{
     margin-left: auto;
     padding-left: 12px;

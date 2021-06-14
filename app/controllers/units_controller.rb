@@ -38,7 +38,8 @@ class UnitsController < ApplicationController
             flash[:success] = "Unit created!"
             redirect_to "/units"
         else
-            render 'static_pages/home'
+            flash[:danger] = "Error: Unit was not created"
+            redirect_to "/units"
         end
 
     end
@@ -49,15 +50,15 @@ class UnitsController < ApplicationController
         
 
     end
-    # def edit
-    #     Unit.find(params[:id]).update(:location => "user")
+    def edit
+        @unit = Unit.find(params[:id])
         
-    # end
+    end
     def update
         @unit = Unit.find(params[:id])
         if @unit.update_attributes(units_params)
-            flash[:success] = "Unit Location changed"
-            redirect_to "/checkout"
+            flash[:success] = "Unit Updated"
+            redirect_back(fallback_location:"/")
         else
             flash[:danger] = "Error Occured"
         end
