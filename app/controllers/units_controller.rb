@@ -36,6 +36,9 @@ class UnitsController < ApplicationController
         @unit = Unit.new(units_params)
         if @unit.save
             flash[:success] = "Unit created!"
+            if(@unit.location != "storage")
+                Transaction.create(category: "Checkout", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+            end
             redirect_to "/units"
         else
             flash[:danger] = "Error: Unit was not created"
@@ -54,10 +57,16 @@ class UnitsController < ApplicationController
         @unit = Unit.find(params[:id])
         
     end
+    #Checkout mainly happens with this function
     def update
         @unit = Unit.find(params[:id])
+        last_location = @unit.location
         if @unit.update_attributes(units_params)
             flash[:success] = "Unit Updated"
+            if(@unit.location != "storage" and @unit.location != last_location)
+                #As long as location does not equal storage or its last location it will update the transaction history
+                Transaction.create(category: "Checkout", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+            end
             redirect_back(fallback_location:"/")
         else
             flash[:danger] = "Error Occured"
@@ -77,8 +86,10 @@ class UnitsController < ApplicationController
         
     end
     def approve
-        Unit.find(params[:id]).update(:location => Unit.find(params[:id]).requestor)
-        Unit.find(params[:id]).update(:requestor => "N/A")
+        @unit = Unit.find(params[:id])
+        Transaction.create(category: "Checkout", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+        @unit.update(:location => Unit.find(params[:id]).requestor)
+        @unit.update(:requestor => "N/A")
         
         flash[:success] = "Request Approved"
         redirect_to '/request_checkout'
@@ -103,15 +114,19 @@ class UnitsController < ApplicationController
         redirect_to '/request_return'
     end
     def approveR
-        Unit.find(params[:id]).update(:returner => "N/A")
-        Unit.find(params[:id]).update(:location => "storage")
+        @unit =  Unit.find(params[:id])
+        Transaction.create(category: "Return", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+        @unit.update(:returner => "N/A")
+        @unit.update(:location => "storage")
         flash[:success] = "Return Request approved"
         redirect_to '/request_return'
         
     end
     def returnManually
-        Unit.find(params[:id]).update(:returner => "N/A")
-        Unit.find(params[:id]).update(:location => "storage")
+        @unit =  Unit.find(params[:id])
+        Transaction.create(category: "Return", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+        @unit.update(:returner => "N/A")
+        @unit.update(:location => "storage")
         flash[:success] = "Unit manually returned"
         redirect_to '/borrowed_units'
     end

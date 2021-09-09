@@ -1,0 +1,30 @@
+<!--transactions Table -->
+        <h3>Transactions </h3>
+        <%= will_paginate @transactions%>
+        <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">Unit</th>
+          <th scope="col">VSU Tag</th>
+          <th scope="col">User</th>
+          <th scope="col">Time</th>
+          <th scope="col">Delete</th>
+          <!--<th scope="col">Edit</th>-->
+        </tr>
+      </thead>
+      <tbody>
+        <% @transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.category %></td>
+            <td><%= transaction.unit %></td>
+            <td><%= transaction.unit_tag %></td>
+            <td><%= transaction.user  %></td>
+            <td><%= transaction.time %></td>
+              <%#= select_tag(:location, options_from_collection_for_select(User.all, :id, :name), selected: :location)%>
+              <td><%= link_to 'Delete', transaction, method: :delete, data: { confirm: "You sure?" } %></td>
+       </tbody>
+       <% end %>
+       
+    </table>
+<%= will_paginate @transactions%>

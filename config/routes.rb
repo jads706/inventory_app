@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   get '/create_user', to: 'users#create_user'
   get '/users', to: 'users#index'
   get '/verify_user', to: 'users#verify_user'
+  get '/transactions', to: 'transactions#index'
   resources :users
+  resources :transactions
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :product_types, only: [:create, :destroy]
