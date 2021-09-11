@@ -36,9 +36,9 @@ class UnitsController < ApplicationController
         @unit = Unit.new(units_params)
         if @unit.save
             flash[:success] = "Unit created!"
-            if(@unit.location != "storage")
-                Transaction.create(category: "Checkout", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
-            end
+            # if(@unit.location != "storage")
+            #     Transaction.create(category: "Unit Creation w/ user", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+            # end
             redirect_to "/units"
         else
             flash[:danger] = "Error: Unit was not created"
@@ -60,19 +60,38 @@ class UnitsController < ApplicationController
     #Checkout mainly happens with this function
     def update
         @unit = Unit.find(params[:id])
-        last_location = @unit.location
+        #last_location = @unit.location
         if @unit.update_attributes(units_params)
             flash[:success] = "Unit Updated"
-            if(@unit.location != "storage" and @unit.location != last_location)
-                #As long as location does not equal storage or its last location it will update the transaction history
-                Transaction.create(category: "Checkout", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
-            end
-            redirect_back(fallback_location:"/")
+            # if(@unit.location != "storage" and @unit.location != last_location)
+            #     #As long as location does not equal storage or its last location it will update the transaction history
+            #     Transaction.create(category: "Checkout", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+            # end
+            #redirect_back(fallback_location:"/")
+            redirect_to '/units'
+
         else
             flash[:danger] = "Error Occured"
         end
         
     end
+    #Update function for checkout and transaction record
+    def updateCheckout
+        @unit = Unit.find(params[:id])
+        last_location = @unit.location
+        if @unit.update_attributes(units_params)
+            flash[:success] = "Unit Checked Out and Transaction Recorded"
+            Transaction.create(category: "Checkout", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+            # if(@unit.location != "storage" and @unit.location != last_location)
+            #     #As long as location does not equal storage or its last location it will update the transaction history
+            #     Transaction.create(category: "Checkout", unit: @unit.name_id, unit_tag: @unit.vsu_id, user: @unit.location, time: Time.zone.now)
+            # end
+            redirect_back(fallback_location:"/")
+        else
+            flash[:danger] = "Error Occured"
+        end
+    end
+
     def checkoutA
         Unit.find(params[:id]).update(:location => current_user.name)
         flash[:success] = "User has been selected for checkout"

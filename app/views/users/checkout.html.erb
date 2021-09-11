@@ -31,7 +31,7 @@
         <!--<td><%#= link_to 'Edit', "#" %></td>-->
         <% if current_user.admin? %>
         <td>
-          <%= form_for unit do |f| %>
+          <%= form_for unit, url: updateCheckout_unit_path(unit), method: :patch do |f| %>
             <%= f.select :location, User.all.map{|c| [c.name]}, :prompt => "Select One"%>
             <%= f.submit "Checkout", class: "btn btn-primary", id: "admin-checkout" %>
         </td>

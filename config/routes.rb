@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :units do
     member do
       patch :returnManually
+      patch :updateCheckout
       patch :checkout
       patch :returning
       patch :approve

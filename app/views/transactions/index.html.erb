@@ -20,7 +20,7 @@
             <td><%= transaction.unit %></td>
             <td><%= transaction.unit_tag %></td>
             <td><%= transaction.user  %></td>
-            <td><%= transaction.time %></td>
+            <td><%= transaction.time.strftime("%m/%d/%y %I:%M %p %Z") %></td>
               <%#= select_tag(:location, options_from_collection_for_select(User.all, :id, :name), selected: :location)%>
               <td><%= link_to 'Delete', transaction, method: :delete, data: { confirm: "You sure?" } %></td>
        </tbody>
