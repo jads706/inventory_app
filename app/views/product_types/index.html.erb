@@ -6,7 +6,7 @@
           <th scope="col">Model</th>
           <th scope="col">Brand</th>
           <!--<th scope="col">Edit</th>-->
-          <th scope="col">Delete</th>
+          <th scope="col">Edit/Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -16,7 +16,7 @@
             <td><%= product.model %></td>
             <td><%= product.brand %></td>
             <!--<td><%#= link_to 'Edit', "#" %></td>-->
-            <td><%= link_to 'Delete', product, method: :delete, data: { confirm: "You sure?" } %></td>
+            <td><%= link_to 'Edit',edit_product_type_path(product) %>/<%= link_to 'Delete', product, method: :delete, data: { confirm: "You sure?" } %></td>
           </tr>
         <% end %>
       </tbody>

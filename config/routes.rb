@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :transactions
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  resources :product_types, only: [:create, :destroy]
+  resources :product_types, only: [:create, :destroy, :edit, :update]
   resources :units do
     member do
       patch :returnManually

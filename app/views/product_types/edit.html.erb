@@ -1,0 +1,11 @@
+<% provide(:title, 'Edit Product Type') %>
+<h1>Update Product Type</h1>
+
+<br>
+    <%= form_with(model: @product_type, local: true, id: "form") do |f| %>
+        <%= f.label :model %>
+        <%= f.text_field :model, class: 'form-control' %>
+        <%= f.label :brand %>
+        <%= f.text_field :brand, class: 'form-control' %>
+    <%= f.submit "Save", class: "btn btn-primary", id: "form-btn" %>
+    <% end %>

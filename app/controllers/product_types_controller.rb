@@ -23,6 +23,21 @@ class ProductTypesController < ApplicationController
         end
 
     end
+    def edit
+        @product_type = ProductType.find(params[:id])
+        ensure_admin!
+    end
+    def update
+        @product_type = ProductType.find(params[:id])
+        if @product_type.update_attributes(product_types_params)
+            flash[:success] = "Product Type Updated"
+            redirect_to '/product_types'
+
+        else
+            flash[:danger] = "Error Occured"
+        end
+
+    end
     def destroy
         begin
         ProductType.find(params[:id]).destroy

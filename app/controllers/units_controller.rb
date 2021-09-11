@@ -55,6 +55,7 @@ class UnitsController < ApplicationController
     end
     def edit
         @unit = Unit.find(params[:id])
+        ensure_admin!
         
     end
     #Checkout mainly happens with this function
